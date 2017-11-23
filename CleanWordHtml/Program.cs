@@ -16,8 +16,8 @@ namespace CleanWordHtml
         {
             //"height", "width",
             "border", "border-top", "border-bottom", "border-left", "border-right", "border-collapse",
-            //"padding", "padding-top", "padding-bottom", "padding-left", "padding-right",
-            //"margin", "margin-top", "margin-bottom", "margin-left", "margin-right",
+            "padding", "padding-top", "padding-bottom", "padding-left", "padding-right",
+            "margin", "margin-top", "margin-bottom", "margin-left", "margin-right",
             "font-size", "font-family", "text-indent",
             "cellspacing", "cellpadding", 
         };
