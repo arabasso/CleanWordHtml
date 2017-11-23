@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace CleanWordHtml.Test
 {
@@ -20,7 +21,7 @@ namespace CleanWordHtml.Test
         [Test]
         public void Append_content()
         {
-            var tag = new TextBlock(_content1[0]);
+            var tag = new TextBlock('<', '>', _content1[0]);
 
             tag.AppendContent(_content1[1]);
 
@@ -30,7 +31,7 @@ namespace CleanWordHtml.Test
         [Test]
         public void Append_content_array()
         {
-            var tag = new TextBlock();
+            var tag = new TextBlock('<', '>');
 
             tag.AppendContent(_content1);
 
@@ -40,7 +41,7 @@ namespace CleanWordHtml.Test
         [Test]
         public void Not_balanced()
         {
-            var tag = new TextBlock(_content1[0]);
+            var tag = new TextBlock('<', '>', _content1[0]);
 
             Assert.That(tag.IsBalanced(), Is.False);
         }
@@ -48,7 +49,7 @@ namespace CleanWordHtml.Test
         [Test]
         public void Is_balanced_content()
         {
-            var tag = new TextBlock(_content2[0]);
+            var tag = new TextBlock('<', '>', _content2[0]);
 
             Assert.That(tag.IsBalanced(), Is.False);
         }
@@ -56,7 +57,7 @@ namespace CleanWordHtml.Test
         [Test]
         public void Is_balanced_appended_content()
         {
-            var tag = new TextBlock();
+            var tag = new TextBlock('<', '>');
 
             foreach (var content in _content1)
             {
@@ -64,6 +65,22 @@ namespace CleanWordHtml.Test
             }
 
             Assert.That(tag.IsBalanced(), Is.True);
+        }
+
+        [Test]
+        public void Split_has_one()
+        {
+            var tag = new TextBlock('<', '>', _content1);
+
+            Assert.That(tag.Split(), Has.Count.EqualTo(1));
+        }
+
+        [Test]
+        public void Split_has_two()
+        {
+            var tag = new TextBlock('<', '>', _content2);
+
+            Assert.That(tag.Split(), Has.Count.EqualTo(5));
         }
     }
 }

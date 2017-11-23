@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace CleanWordHtml
 {
@@ -16,15 +18,6 @@ namespace CleanWordHtml
         {
             _leftBrackets = new[] {left};
             _rightBrackets = new[] { right };
-
-            Content = string.Concat(content);
-        }
-
-        public TextBlock(
-            params string [] content)
-        {
-            _leftBrackets = new[] { '<' };
-            _rightBrackets = new[] { '>' };
 
             Content = string.Concat(content);
         }
@@ -58,13 +51,70 @@ namespace CleanWordHtml
             return Content;
         }
 
-        //public override string ToString()
-        //{
-        //    var c = Content;
+        public List<string> Split()
+        {
+            string s;
 
-        //    Content = null;
+            var count = 0;
 
-        //    return c;
-        //}
+            var list = new List<string>();
+
+            var sb = new StringBuilder();
+
+            foreach (var c in Content)
+            {
+                if (_leftBrackets.Contains(c))
+                {
+                    count++;
+
+                    if (count == 1)
+                    {
+                        s = sb.ToString();
+
+                        sb.Clear();
+
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            list.Add(s);
+                        }
+                    }
+
+                    sb.Append(c);
+                }
+
+                else if (_rightBrackets.Contains(c))
+                {
+                    sb.Append(c);
+
+                    count--;
+
+                    if (count == 0)
+                    {
+                        s = sb.ToString();
+
+                        sb.Clear();
+
+                        if (!string.IsNullOrEmpty(s))
+                        {
+                            list.Add(s);
+                        }
+                    }
+                }
+
+                else
+                {
+                    sb.Append(c);
+                }
+            }
+
+            s = sb.ToString();
+
+            if (!string.IsNullOrEmpty(s))
+            {
+                list.Add(s);
+            }
+
+            return list;
+        }
     }
 }

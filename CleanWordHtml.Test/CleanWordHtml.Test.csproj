@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StyleAttributeTest.cs" />
+    <Compile Include="StyleTest.cs" />
+    <Compile Include="AttributeTest.cs" />
+    <Compile Include="TagTest.cs" />
     <Compile Include="TextBlockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
